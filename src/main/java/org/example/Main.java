@@ -1,7 +1,10 @@
 package org.example;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *DESCRIPTION
@@ -22,8 +25,6 @@ import java.util.List;
  * a Phone can be of certain manufacturers and // manufacturers
  * it can have a specific model (Phone - Samsung - SamsungGalaxyS6) // specific model
  * properties which cannot change: battery life (in number of hours) // battery life
- * properties that are configurable: color, material // color , material
- * properties that are instance specific: IMEI // IMEI
  *
  * Behavior
  *
@@ -31,35 +32,54 @@ import java.util.List;
  * every time a message is send an hour is taken from the battery life
  * every time a call is made two hours are taken from the battery life
  *
+ * implement the classes, abstract classes and interfaces according to the given information
+ * create at least 2 phone brands with 2 models for each
+ * create 2 new contacts
+ * send a message to the first contact
+ * make a call to the second contact
+ *
  * NOUNS: contact, phone, text message, call history, manufacturers, model, battery, color, material, IMEI
  * Verbs: create, see(existing contacts), send, see (all messages), make(a call), see(call history)
  *
- * Class : Phone, Model
+ * Class : Phone, Brand/Manufactures, Model
  */
-public class Main
-{
-    public static void main( String[] args )
-    {
+public class Main {
+    public static void main(String[] args) {
 
-  //      Phone phone= new Samsung(); // shouldn't compile
+        //      Phone phone= new Samsung(); // shouldn't compile
 
-        Phone phone = new SamsungGalaxy6();
-        Phone phone1 = new SamsungGalaxyA23();
+        Phone phone = new SamsungGalaxy6("124578124578124", "Stainless Steel", "Green");
+        Phone phone1 = new SamsungGalaxyA23("235689124578125", "Recycled Plastic", "White");
 
-        phone.addContact(1, "0736073207", "Hetea", "Liliana");
 
-        phone.addContact(2, "0740022033", "Pop", "Maria");
+        System.out.println("First phone added is a SamsungGalaxy6 " + phone.toString());
+        System.out.println("Second phone added is a SamsungGalaxyA23" + phone1.toString());
+
+        Map<Phone, List<String>> phoneBook = new HashMap<>();
+
+        Phone phone3 = new SamsungGalaxyA23("123", "Steel", "Gry");
+
+        List<String> contact = new ArrayList<>();
+
+        contact.add(phone3.addContact(2, "0740022033",
+                "Pop", "Maria").toString());
+        contact.add(phone3.addContact(1, "0741122133",
+                "Ionescu", "Ioan").toString());
+        contact.add(phone3.addContact(2, "0752233244",
+                "Rus", "Ana").toString());
+
+        phoneBook.put(phone3, contact);
+
+        List<String> contactList = phoneBook.get(contact);
+        for(String contacts : contactList){
+            System.out.println(contacts);
+        }
+        System.out.println(phoneBook);
+
 
         phone1.addContact(1, "0741122133", "Ionescu", "Ioan");
 
         phone1.addContact(2, "0752233244", "Rus", "Ana");
-
-        System.out.println("SamsungGalaxy6 color is ".concat(phone.color = "Green")
-                            + " and the material used is ".concat(phone.material = "Stainless Steel"));
-        System.out.println("SamsungGalaxyA23 color is ".concat(phone1.color = "White")
-                            + " and the material used is ".concat(phone.material = "Recycled Plastic"));
-        System.out.println(phone.IMEI = "124578124578124" + phone.toString());
-        System.out.println(phone1.IMEI = "235689235689235" + phone1.toString());
 
         phone.sendMessage("0755258963", new String[]{"jndhfbcbybfhfjsns"});
         phone.sendMessage("0740022033", new String[]{"alanajficcdsbcyrfbkjashbscjdcufrfbdnc"});
@@ -79,7 +99,7 @@ public class Main
 
         phone.sendMessage("phone number", new String[]{"message content"});
 
-        phone.getFirstMessage("phone number");
+        phone.getFirstMessage("0740022033");
 
         phone.getSecondMessage("phone number");
 
