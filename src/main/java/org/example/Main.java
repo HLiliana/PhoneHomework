@@ -48,7 +48,6 @@ public class Main {
 
         Phone phone = new SamsungGalaxy6("1251251251251", "plastic", "grey");
         Samsung phone1 = new SamsungGalaxyA23("5215215215215", "aluminum", "black");
-
         Phone phone2 = new Apple14MAX("9659659659659", "plastic", "green");
         Apple phone3 = new Apple13PRO("7547587587458", "plastic", "black");
 
@@ -67,12 +66,10 @@ public class Main {
                 "Hey, I just wanted to say GOODBYE in my second message.");
         phone.getFirstMessage(contact1.phoneNumber);
         phone.getSecondMessage(contact1.phoneNumber);
-        phone.seeAllMessagesForSpecificContact(contact1.phoneNumber);
+        phone.getAllMessagesForSpecificContact(contact1.phoneNumber);
 
         phone.makeACall(contact2.phoneNumber);
         phone.makeACall(contact1.phoneNumber);
-        phone.makeACall("0777555111");
-        phone.makeACall("0777999111");
         phone.seeAllCallHistory();
 
         System.out.println(phone.returnPhoneName() + " has " + phone.returnBatteryLife() + " hours left from it`s battery.");

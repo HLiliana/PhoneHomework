@@ -1,4 +1,5 @@
 package org.example;
+
 /**
  * Simple use of inheritance.
  * No need for test units.
