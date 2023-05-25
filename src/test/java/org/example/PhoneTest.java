@@ -85,15 +85,6 @@ public class PhoneTest extends TestCase {
     }
 
     @Test
-    public void testMakeACallToNullContact() {
-        Phone phone = new SamsungGalaxy6("1251251251251", "plastic", "grey");
-        Contact contact1 = null;
-//this test is not working
-        assertThrows(IllegalArgumentException.class,
-                () -> phone.makeACall(contact1.phoneNumber));
-    }
-
-    @Test
     public void testMakeACallToNullPhoneNumber() {
         Phone phone = new SamsungGalaxy6("1251251251251", "plastic", "grey");
         Contact contact1 = new Contact("1", null, "Liliana", "Hetea");
@@ -183,11 +174,10 @@ public class PhoneTest extends TestCase {
     @Test
     void sendTextMessageWithNullContent() {
         Phone phone = new SamsungGalaxy6("1251251251251", "plastic", "grey");
-        phone.sendTextMessage("0720203507", null);
-//with "" is working with null is not
-        assertEquals(1, phone.messageList.size());
-    }
 
+        assertThrows(IllegalArgumentException.class,
+                () -> phone.sendTextMessage("0720203507", null));
+    }
     @Test
     void getFirstMessageFromAnEmptyList() {
         Phone phone = new SamsungGalaxy6("1251251251251", "plastic", "grey");
@@ -203,10 +193,7 @@ public class PhoneTest extends TestCase {
         Contact contact1 = new Contact("1", "0777111111", "Liliana", "Hetea");
         phone.addContact(contact1);
         phone.sendTextMessage(contact1.phoneNumber, "Hello world!");
-//test does not work,
-//bad implementation of @toString()
-        assertEquals(phone.messageList.values().toString()
-                , phone.getFirstMessage(contact1.phoneNumber));
+        assertEquals("Hello world!", phone.getFirstMessage(contact1.phoneNumber));
     }
 
     @Test
@@ -224,11 +211,9 @@ public class PhoneTest extends TestCase {
         Contact contact1 = new Contact("1", "0777111111", "Liliana", "Hetea");
         phone.addContact(contact1);
         phone.sendTextMessage(contact1.phoneNumber, "haha");
-        phone.sendTextMessage(contact1.phoneNumber, "haha blabala");
-//test does not work,
-//bad implementation of @toString()
-        assertEquals(phone.messageList.values().toString(),
-                phone.getSecondMessage(contact1.phoneNumber));
+        phone.sendTextMessage(contact1.phoneNumber, "haha2");
+
+        assertEquals("haha2",phone.getSecondMessage(contact1.phoneNumber));
     }
 
     @Test

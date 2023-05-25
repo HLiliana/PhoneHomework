@@ -87,6 +87,9 @@ public abstract class Phone {
         if (!checkingPhoneNumberFormat(phoneNumber)) {
             throw new IllegalArgumentException("Invalid phone number format");
         }
+        if (messageContent == null) {
+            throw new IllegalArgumentException("Message content cannot be null");
+        }
         if (messageContent.length() >= 500) {
             throw new IllegalArgumentException("Text message has to much chars. ");
         }
@@ -141,8 +144,9 @@ public abstract class Phone {
     public String returnPhoneName() {
         return getClass().getSimpleName();
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return messageList.get(returnPhoneName()).toString();
     }
 }
