@@ -1,0 +1,294 @@
+ DESCRIPTION
+ * Phone has behavior --> interface/ abstract class
+ * every Phone has contacts? yes
+ Methods in every phone:
+    - createNewContacts --> requirement: at least 2 contacts per phone
+    - seeAllExistingContacts
+    - sendTextMessage
+        - textMessage - max 500 chars
+        - BATTERY_LIFE -= -1
+    - seeAllMessagesForSpecificContact --> requirement: at least 2 messages per contact
+    - makeACall
+        BATTERY_LIFE -= -2
+    - seeAllCallHistory
+ * //manufactures , specificModel
+ * Does Samsung have the same behavior as Phone? yes -- implement Phone
+ * Is the specificModel a Samsung? yes -- extends Samsung
+ * Phone properties :
+    - BATTERY_LIFE -- is a constant
+    - BATTERY_LIFE -- INTEGER number of hours
+    - color, material -- String
+    - IMEI - specific identification number -- final String
+ * Tasks
+ *
+ * implement the classes, abstract classes and interfaces according to the given information
+ * create at least 2 phone brands with 2 models for each
+ * create 2 new contacts
+ * send a message to the first contact
+ * make a call to the second contact
+ *
+ * Unit Testing - for extra credit
+ *
+ * Nouns:phones, behavior, manufactures , specificModel, BATTERY_LIFE, color, material, IMEI, textMessage,
+ * Verbs:  createNewContacts, seeExistingContacts, sendTextMessage, seeAllMessagesForSpecificContact,
+ *         makeACall, seeAllCallsHistory,
+ */
+
+
+
+
+
+
+
+
+
+
+package org.example;
+
+import java.util.List;
+
+public class SamsungGalaxyA23 extends  Samsung {
+    public SamsungGalaxyA23(String IMEI, String material, String color) {
+        super(IMEI, material, color);
+
+    }
+
+    @Override
+    public List<String> addContact(Integer contactCriteriaNumber, String phoneNumber, String firstName, String lastName) {
+        return null;
+    }
+
+    @Override
+    public String[] sendMessage(String s, String[] strings) {
+
+    }
+}
+
+
+package org.example;
+
+import java.util.List;
+
+public class SamsungGalaxy6 extends Samsung{
+
+    public SamsungGalaxy6( String IMEI, String material, String color) {
+        super( IMEI, material, color);
+
+
+    }
+
+    @Override
+    public List<String> addContact(Integer contactCriteriaNumber, String phoneNumber, String firstName, String lastName) {
+        return null;
+    }
+
+    @Override
+    public String[] sendMessage(String s, String[] strings) {
+
+    }
+
+    @Override
+    public String[] getFirstMessage(String phoneNumber) {
+
+    }
+}
+
+package org.example;
+
+import java.util.List;
+
+public abstract class Samsung implements Phone {
+
+    public String color;
+    protected String material;
+    protected String IMEI;
+    String phoneNumber;
+
+    public Samsung(String IMEI, String material, String color) {
+        this.IMEI = IMEI;
+        this.material = material;
+        this.color = color;
+
+    }
+
+
+    /**
+     * phoneBook has in the for of string the phone number and in the form of list te contacts.
+     * <p>
+     * protected Map<Phone, List<String>> phoneBook = new HashMap<>();
+     */
+
+
+    public abstract class Contact implements Phone{
+
+        String phoneNumber;
+        String firstName;
+        String lastName;
+        protected Integer contactCriteriaNumber;
+        public String contact (String phoneNumber,String firstName,String lastName, Integer contactCriteriaNumber){
+            this.phoneNumber=phoneNumber;
+            this.firstName=firstName;
+            this.lastName=lastName;
+            this.contactCriteriaNumber=contactCriteriaNumber;
+            return phoneNumber;
+        }
+        public List<Contact> contactList;
+
+        public void addContact(Contact contact) {
+            if (contact == null) {
+                return;
+            } else contactList.add(contact);
+
+        }
+
+        public void call(String phoneNumber){
+
+            }
+        public String[] sendMessage (String phoneNumber, String[] strings){
+            this.phoneNumber=phoneNumber;
+            if (strings.length > 100){
+                System.out.println("Your message has to many characters.");
+            }
+            System.out.println(strings + " Message sent!");
+
+            return strings;
+        }
+        public String[] getFirstMessage(String phoneNumber) {
+            if (phoneNumber.equals(contactList.contains(phoneNumber))) {
+                System.out.println();
+                return phoneNumber.toString(
+                        sendMessage(this.phoneNumber, String[0]));
+
+            }
+            return new String[0];
+        }
+        public String[] getSecondMessage(String phoneNumber){
+                if (phoneNumber.equals(contactList.contains(phoneNumber))) {
+                    System.out.println();
+                    return phoneNumber.toString(
+                            sendMessage(this.phoneNumber, String[1]));
+                }
+            return new String[0];
+        }
+
+        public void getContact(int i){
+        contactList.get(contactCriteriaNumber);
+        }
+        public void removeContact(Contact contact) {
+            contactList.remove(contact);
+        }
+
+        public List<Contact> getContacts() {
+
+            return contactList;
+        }
+    }
+}
+
+
+package org.example;
+
+import java.util.*;
+
+interface Phone {
+
+    public List<String> addContact(Integer contactCriteriaNumber, String phoneNumber, String firstName, String lastName);
+
+    void call(String phoneNumber);
+    String[] sendMessage(String s, String[] strings);
+
+    String[] getFirstMessage(String phoneNumber);
+    String [] getSecondMessage(String phoneNumber);
+
+    void getContact(int i);
+
+
+
+
+//    public int call(String phoneNumber);
+//
+//    public void getSecondMessage(String phoneNumber);
+//
+//    public void getFirstMessage(String phoneNumber);
+//
+//    public int sendMessage(String phoneNumber, String[] messageContent);
+//
+//    public void getLastContact();
+//
+//    public void getFirstContact();
+//
+//    public void SeeExistingContacts();
+//
+
+//    public void setContactList();
+}
+
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        //      Phone phone= new Samsung(); // shouldn't compile
+
+        Phone phone = new SamsungGalaxy6("124578124578124", "Stainless Steel", "Green");
+        Phone phone1 = new SamsungGalaxyA23("235689124578125", "Recycled Plastic", "White");
+
+
+        System.out.println("First phone added is a SamsungGalaxy6 " + phone.toString());
+        System.out.println("Second phone added is a SamsungGalaxyA23" + phone1.toString());
+
+        Map<Phone, List<String>> phoneBook = new HashMap<>();
+
+        Phone phone3 = new SamsungGalaxyA23("123", "Steel", "Gry");
+
+        List<String> contact = new ArrayList<>();
+
+        contact.add(phone3.addContact(2, "0740022033",
+                "Pop", "Maria").toString());
+        contact.add(phone3.addContact(1, "0741122133",
+                "Ionescu", "Ioan").toString());
+        contact.add(phone3.addContact(2, "0752233244",
+                "Rus", "Ana").toString());
+
+        phoneBook.put(phone3, contact);
+
+        List<String> contactList = phoneBook.get(contact);
+        for(String contacts : contactList){
+            System.out.println(contacts);
+        }
+        System.out.println(phoneBook);
+
+
+        phone1.addContact(1, "0741122133", "Ionescu", "Ioan");
+
+        phone1.addContact(2, "0752233244", "Rus", "Ana");
+
+        phone.sendMessage("0755258963", new String[]{"jndhfbcbybfhfjsns"});
+        phone.sendMessage("0740022033", new String[]{"alanajficcdsbcyrfbkjashbscjdcufrfbdnc"});
+
+        phone.call(phone.phoneNumber);
+
+        System.out.println(phone.getContact(0));
+        System.out.println(phone.getContact(1));
+
+        phone.getFirstContact(0);
+
+        phone.getLastContact(1);
+
+// send a message to the first contact from the previously listed
+
+// max number of characters - 100
+
+        phone.sendMessage("phone number", new String[]{"message content"});
+
+        phone.getFirstMessage("0740022033");
+
+        phone.getSecondMessage("phone number");
+
+// make a call to the second contact from the previously listed
+
+        phone1.call(phone1.phoneNumber);
+
+        System.out.println(phone.viewHistory());
+    }
+}
